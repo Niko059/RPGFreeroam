@@ -454,11 +454,49 @@
 }
 
 </style>
+    <footer>
+        <div class="container">
+            <h3>OpenWorld Adventure – Serveur en développement azerothcore.</h3>
+            <p>
+               Cartes libres d’utilisation pour la communauté.
+            </p>
+        </div>
+    </footer>
 
 
-<!-- =========================================
-     JS SLIDER
-========================================= -->
+    <!-- LIGHTBOX -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <button class="lightbox-close">×</button>
+        <img id="lightbox-img" src="">
+    </div>
+
+
+    <script>
+
+        function openLightbox(src) {
+            document.getElementById('lightbox').classList.add('active');
+            document.getElementById('lightbox-img').src = src;
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            navbar.classList.toggle('scrolled', window.scrollY > 40);
+        });
+
+    </script>
+<script>
+fetch("menu.html")
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById("menu").innerHTML = data;
+  });
+</script>
 
 <script>
 
@@ -611,53 +649,6 @@ window.addEventListener('resize', () => {
     updateSlider();
 });
 
-</script>
-
-
-
-    <!-- FOOTER -->
-    <footer>
-        <div class="container">
-            <h3>OpenWorld Adventure – Serveur en développement azerothcore.</h3>
-            <p>
-               Cartes libres d’utilisation pour la communauté.
-            </p>
-        </div>
-    </footer>
-
-
-    <!-- LIGHTBOX -->
-    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
-        <button class="lightbox-close">×</button>
-        <img id="lightbox-img" src="">
-    </div>
-
-
-    <script>
-
-        function openLightbox(src) {
-            document.getElementById('lightbox').classList.add('active');
-            document.getElementById('lightbox-img').src = src;
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeLightbox() {
-            document.getElementById('lightbox').classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-
-        window.addEventListener('scroll', () => {
-            const navbar = document.getElementById('navbar');
-            navbar.classList.toggle('scrolled', window.scrollY > 40);
-        });
-
-    </script>
-<script>
-fetch("menu.html")
-  .then(response => response.text())
-  .then(data => {
-    document.getElementById("menu").innerHTML = data;
-  });
 </script>
 </body>
 </html>
