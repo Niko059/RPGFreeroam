@@ -44,6 +44,7 @@ html {
     z-index: 999;
     padding: 25px 0;
     transition: 0.3s;
+    background: var(--dark2);
 }
 
 .navbar.scrolled {
