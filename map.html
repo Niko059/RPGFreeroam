@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>WoW Map Editor</title>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+<style>
+
+body{
+    margin:0;
+    overflow:hidden;
+    font-family:Arial;
+}
+
+#map{
+    width:100vw;
+    height:100vh;
+}
+
+/* LABELS */
+#labels-layer{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:1000;
+
+    /* AJOUT IMPORTANT */
+    pointer-events:none;
+}
+.leaflet-container {
+  background: #394e44;
+  outline-offset: 1px;
+}
+.label{
+    position:absolute;
+    color:#f0d28a;
+    font-weight:bold;
+    font-size:18px;
+    text-shadow:0 0 6px black;
+    transform:translate(-50%, -50%);
+    cursor:grab;
+    user-select:none;
+
+    /* AJOUT IMPORTANT */
+    pointer-events:auto;
+}
+
+.label:active{
+    cursor:grabbing;
+}
+
+/* UI */
+.ui{
+    position:absolute;
+    top:15px;
+    left:15px;
+    z-index:2000;
+    display:flex;
+    gap:10px;
+}
+
+button{
+    padding:10px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    background:#222;
+    color:white;
+}
+
+#output{
+    position:absolute;
+    bottom:10px;
+    left:10px;
+    width:400px;
+    height:200px;
+    background:#000;
+    color:#0f0;
+    font-size:12px;
+    overflow:auto;
+    z-index:3000;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="map"></div>
+<div id="labels-layer"></div>
+
+
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+
+/* =========================
+   MAP
+========================= */
+
+const W = 4096;
+const H = 4096;
+
+const map = L.map('map',{
+    crs:L.CRS.Simple,
+    minZoom:-2,
+    maxZoom:3
+});
+
+L.imageOverlay("main.jpg", [[0,0],[H,W]]).addTo(map);
+map.fitBounds([[0,0],[H,W]]);
+
+
+/* =========================
+   DATA
+========================= */
+
+let labelsData = [
+  {
+    "id": "montagne",
+    "x": 2668,
+    "y": 3148,
+    "text": "Les Hautes montagnes enneigée"
+  },
+  {
+    "id": "phare",
+    "x": 1100,
+    "y": 3724,
+    "text": "Phare du nord-ouest"
+  },
+  {
+    "id": "phare2",
+    "x": 3348,
+    "y": 2892,
+    "text": "Phare du nord-est"
+  },
+  {
+    "id": "murloc",
+    "x": 1480,
+    "y": 2284,
+    "text": "Île des Murlocs"
+  },
+  {
+    "id": "bucheron",
+    "x": 2168,
+    "y": 1416,
+    "text": "Camp de bûcheron"
+  },
+  {
+    "id": "fruit",
+    "x": 1984,
+    "y": 796,
+    "text": "île aux fruit"
+  },
+  {
+    "id": "plaisirs",
+    "x": 1972,
+    "y": 1928,
+    "text": "Vallée des plaisirs"
+  },
+  {
+    "id": "Camp",
+    "x": 1680,
+    "y": 3140,
+    "text": "Camp des Gnolls"
+  },
+  {
+    "id": "Forêt du printemps",
+    "x": 2580,
+    "y": 1856,
+    "text": "Forêt du printemps"
+  },
+  {
+    "id": "comtess",
+    "x": 2980,
+    "y": 2352,
+    "text": "Le Champ de la Comtesse"
+  },
+  {
+    "id": "Reve",
+    "x": 2492,
+    "y": 692,
+    "text": "Portail vers Emerald Dream"
+  },
+  {
+    "id": "Illegal",
+    "x": 3116,
+    "y": 2788,
+    "text": "Ferme Illégal"
+  },
+  {
+    "id": "Trésor",
+    "x": 1608,
+    "y": 1332,
+    "text": "L'île au trésor des défiats"
+  },
+  {
+    "id": "pretrol",
+    "x": 2236,
+    "y": 2444,
+    "text": "Centre Pétrolier"
+  },
+  {
+    "id": "Foret",
+    "x": 2708,
+    "y": 1340,
+    "text": "Jungle Enchantée"
+  },
+  {
+    "id": "sources",
+    "x": 2492,
+    "y": 2948,
+    "text": "Val-des-Sources"
+  }
+]
+
+
+
+/* =========================
+   RENDER
+========================= */
+
+const layer = document.getElementById("labels-layer");
+
+function render(){
+
+layer.innerHTML = "";
+
+labelsData.forEach(label => {
+
+const el = document.createElement("div");
+el.className = "label";
+el.innerText = label.text;
+
+const point = map.latLngToContainerPoint([label.y, label.x]);
+
+el.style.left = point.x + "px";
+el.style.top = point.y + "px";
+
+
+/* DRAG */
+let dragging = false;
+
+el.addEventListener("mousedown",()=>{
+
+if(!editMode) return;
+
+dragging = true;
+
+});
+
+
+document.addEventListener("mousemove",(e)=>{
+
+if(!dragging || !editMode) return;
+
+const rect = map.getContainer().getBoundingClientRect();
+
+el.style.left = (e.clientX - rect.left) + "px";
+el.style.top = (e.clientY - rect.top) + "px";
+
+});
+
+
+document.addEventListener("mouseup",()=>{
+
+if(!dragging) return;
+
+dragging = false;
+
+if(!editMode) return;
+
+const x = parseFloat(el.style.left);
+const y = parseFloat(el.style.top);
+
+const latlng = map.containerPointToLatLng([x,y]);
+
+label.x = latlng.lng;
+label.y = latlng.lat;
+
+});
+
+layer.appendChild(el);
+
+});
+
+}
+
+map.on("move zoom", render);
+render();
+
+
+
+
+
+/* DEBUG */
+map.on("click",e=>{
+console.log("X:",Math.round(e.latlng.lng),
+"Y:",Math.round(e.latlng.lat));
+});
+/* =========================
+   POI
+========================= */
+
+/* =========================
+   POINTS D'INTÉRÊT
+========================= */
+
+const pois = [
+
+{
+    x:1870,
+    y:2900,
+    title:"Équitation",
+    desc:"Petit centre d'équitation"
+},
+
+{
+    x:2700,
+    y:2260,
+    title:"La Maison Hanté",
+    desc:"Une maison abandonné hanté par un esprit d'une dame vêtue d'une robe avec des cheveux frisottés qui rôde sur le chemin, est apparait souvent la nuit vers 2h du soir."
+},
+{
+    x:1500,
+    y:1880,
+    title:"Zone de spawn",
+    desc:"C'est ici apparait le joueur lors de sa création de personnages."
+},
+{
+    x:1920,
+    y:2850,
+    title:"Foire Sombrelune et fête des brasseurs",
+    desc:"Fête et foire disponible toute l'année."
+}
+
+];
+
+
+/* création automatique */
+
+pois.forEach(poi=>{
+
+const marker=L.marker([poi.y,poi.x]).addTo(map);
+
+marker.bindTooltip(
+    poi.title,
+    {
+        direction:"top"
+    }
+);
+
+marker.bindPopup(`
+<b>${poi.title}</b><br>
+${poi.desc}
+`);
+
+});
+
+</script>
+
+</body>
+</html>
