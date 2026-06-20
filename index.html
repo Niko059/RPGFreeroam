@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
-	<div id="menu"></div>
+	<!--<div id="menu"></div>-->
 
 <section class="hero">
 
@@ -21,23 +21,29 @@
     <div class="container hero-content">
 
         <div class="hero-badge">
-            ✦ RPG Freeroam • Open World • AzerothCore
+            ✦ RPG Freeroam • OpenWorld Adventure • AzerothCore
         </div>
 
         <h1>
-            OpenWorld
-            Adventure
+            Le Monde des Îles
         </h1>
 
         <p>
-           Ces mondes vivant regroupe une multitude d’activités et de niveaux, allant des quêtes d’aventure, des quêtes de métiers, aux zones de farm, des histoires à découvrir et bien plus. 
+           Un monde vivant regroupe une multitude d’activités et de niveaux, allant des quêtes d’aventure, des quêtes de métiers, aux zones de farm, des histoires à découvrir, du rôleplay et bien plus. 
         </p>
  <div class="hero-buttons">
-                <button class="btn-primary" data-modal="newsModal">Actualités
+                <button class="btn-secondary" data-modal="newsModal">Actualités
 </button>
 
+<button class="btn-secondary" data-modal="signalModal">
+    Signalement
+</button>
+
+<button class="btn-secondary" data-modal="feuilleModal">
+    Feuille de route
+</button>
 <button class="btn-secondary" data-modal="patchModal">
-    Dernières Images
+    Dernières images Le monde des îles
 </button>
 
 <button class="btn-secondary" data-modal="videoModal">
@@ -51,17 +57,17 @@
 
         <div class="hero-stats">
         	 <div class="stat-card">
-                <h2>30.05.2026</h2>
-                <span>Dernière information communiqué</span>
+                <h2>19.06.2026</h2>
+                <span>Dernier communiqué</span>
             </div>
 
             <div class="stat-card">
-                <h2>10.06.2026</h2>
-                <span>Dernière modification de la carte</span>
+                <h2>20.06.2026</h2>
+                <span>Dernière modification Le monde des îles</span>
             </div>
              <div class="stat-card">
-                <h2>23.05.2026</h2>
-                <span>Dernière images à jour</span>
+                <h2>20.06.2026</h2>
+                <span>Dernière images à jour Le monde des îles</span>
             </div>
 
 
@@ -70,7 +76,572 @@
     </div>
 
 </section>
-<!-- MODAL 1 -->
+
+
+<style>
+
+/* =========================
+   BASE PANEL
+========================= */
+
+.tutorial-hybrid{
+    padding:120px 0;
+    display:flex;
+    justify-content:center;
+}
+
+.tutorial-box{
+    width: 100%;
+  max-width: 1800px;
+  background: rgba(255,255,255,0.95);
+  border: 1px solid rgba(124,58,237,0.25);
+  border-radius: 2px;
+  padding: 50px;
+  box-shadow: 0 30px 90px rgba(124,58,237,0.10);
+  backdrop-filter: blur(12px);
+}
+
+/* TITLE */
+.tutorial-title{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.tutorial-title h2{
+    font-size:2.5rem;
+    color:#7c3aed;
+    letter-spacing:-1px;
+}
+
+.tutorial-title p{
+    color:#64748b;
+    margin-top:8px;
+}
+
+/* PROGRESS BAR */
+.progress-wrap{
+    width:100%;
+    height:8px;
+    background:#eee;
+    border-radius:50px;
+    margin:25px 0 40px;
+    overflow:hidden;
+}
+
+.progress-bar{
+    height:100%;
+    width:25%;
+    background:#7c3aed;
+    transition:0.4s;
+}
+
+/* STEP TRACK (HORIZONTAL) */
+.tutorial-track{
+    display:flex;
+    gap:20px;
+    overflow:hidden;
+}
+
+.tutorial-step{
+
+    pointer-events:none;
+
+    flex:1;
+    min-width:250px;
+
+    background:white;
+    border-radius:18px;
+    border:1px solid rgba(124,58,237,0.15);
+
+    padding:25px;
+
+    opacity:0.4;
+    transform:scale(0.95);
+
+    transition:0.4s;
+}
+
+/* ACTIVE STEP */
+
+.tutorial-step.active{
+
+    pointer-events:auto;
+
+    opacity:1;
+    transform:scale(1);
+
+    box-shadow:0 25px 60px rgba(124,58,237,0.15);
+}
+
+/* NUMBER */
+.step-num{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:#7c3aed;
+    color:white;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-weight:800;
+    margin-bottom:15px;
+}
+
+/* TEXT */
+.step-info h3{
+    color:#7c3aed;
+    margin-bottom:6px;
+}
+
+.step-info p{
+    color:#64748b;
+    font-size:14px;
+    margin-bottom:12px;
+}
+
+/* BUTTON */
+.btn-purple{
+    background:#7c3aed;
+    color:white;
+
+    border:none;
+    padding:10px 16px;
+    border-radius:12px;
+
+    font-weight:700;
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+.btn-purple:hover{
+    transform:translateY(-3px);
+    box-shadow:0 12px 30px rgba(124,58,237,0.3);
+}
+
+/* NAV BUTTONS */
+.nav-buttons{
+    display:flex;
+    justify-content:space-between;
+    margin-top:25px;
+}
+
+.nav-buttons button{
+    padding:10px 18px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:700;
+    background:#111;
+    color:white;
+}
+
+/* MOBILE → vertical */
+@media(max-width:768px){
+    .tutorial-track{
+        flex-direction:column;
+    }
+
+    .tutorial-step{
+        min-width:100%;
+    }
+}
+/* =========================
+   INFO + WARNING SYSTEM
+========================= */
+
+.info-warning{
+    background:rgba(124,58,237,0.08);
+    border:1px solid rgba(124,58,237,0.25);
+    padding:12px 18px;
+    border-radius:12px;
+    margin:20px 0;
+    color:#7c3aed;
+    font-weight:600;
+}
+
+/* REQUIRES TAG */
+.tag-require{
+    display:inline-block;
+    padding:4px 10px;
+    font-size:11px;
+    font-weight:700;
+    border-radius:999px;
+    background:#7c3aed;
+    color:white;
+    margin-bottom:10px;
+}
+
+/* INFO BOX */
+.info-box{
+    margin:10px 0 15px;
+    padding:10px 12px;
+    border-radius:12px;
+
+    background:rgba(124,58,237,0.06);
+    border:1px solid rgba(124,58,237,0.15);
+
+    font-size:13px;
+    color:#5b21b6;
+}
+
+/* POPUP SYSTEM */
+.popup{
+    position:fixed;
+    bottom:30px;
+    right:30px;
+
+    background:#7c3aed;
+    color:white;
+
+    padding:14px 18px;
+    border-radius:12px;
+
+    font-weight:700;
+
+    opacity:0;
+    transform:translateY(20px);
+
+    transition:0.4s;
+    pointer-events:none;
+}
+
+.popup.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+</style>
+
+<section class="tutorial-hybrid" id="tutorial">
+<div class="tutorial-box">
+
+    <div class="tutorial-title">
+        <h2>Comment bien Démarrer</h2>
+        <p>Suivez les étapes pour installer correctement le contenu</p>
+    </div>
+
+    <!-- WARNING BOX GLOBAL -->
+    <div class="info-warning">
+        ⚠️ Attention : N'utilisez seulement les modèles visible sur la carte, Je me réserve le droit de modifier ou de supprimer des éléments du patch à l'avenir.
+    </div>
+    <div class="info-warning">
+        ⚠️ Attention : Vérifier toujours le dernier patch ainsi les Dbc pour le bon fonctionnement de la carte.
+    </div>
+
+    <div class="progress-wrap">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="tutorial-track">
+
+        <!-- STEP 1 -->
+        <div class="tutorial-step active">
+
+            <div class="step-num">1</div>
+
+            <div class="step-info">
+
+                <div class="tag-require">REQUIS</div>
+
+                <h3>C_MPQ</h3>
+
+                <p>Le patch contient modèles, textures et éléments du jeu.</p>
+
+                <div class="info-box">
+                    Extraire, placez le dossier patch-E.MPQ dans le dossier Data. <br/>
+                </div>
+
+                <a href="https://www.mediafire.com/file/862pivj60sgarbf/C_MPQ.zip/file"><button class="btn-purple" onclick="showPopup('Téléchargement lancé !')">
+                    Download
+                </button></a>
+
+            </div>
+
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="tutorial-step">
+
+            <div class="step-num">2</div>
+
+            <div class="step-info">
+                 <div class="tag-require">REQUIS</div>
+                <h3>C_DBC</h3>
+
+                <p>DBFilesClient contient les herbes, lumières, son, nom/ambiance de zone</p>
+
+                <div class="info-box">
+                    📦 Important : Extraire et placer DBFilesClient dans le dossier patch-E.MPQ, n'oubliez pas de placer les fichier dbc de DBFilesClient dans votre dossier dbc de votre serveur.
+                </div>
+
+                <a href="https://www.mediafire.com/file/7sdpprgz83rs4ek/C_DBC.zip/file"><button class="btn-purple" onclick="showPopup('WinRAR recommandé')">
+                    Download
+                </button></a>
+
+            </div>
+
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="tutorial-step">
+
+            <div class="step-num">3</div>
+
+            <div class="step-info">
+
+                <h3>Choissiez votre carte</h3>
+
+                <p>Choissiez les cartes disponible vers Liste des cartes.</p>
+
+                <div class="info-box">
+                    Les cartes se trouve dans le fichier ZIP particulièrement le dossier world/maps/nom de la carte le dossier est déjà prêt vous avez juste à le placer dans patch-E.MPQ
+                </div>
+
+                <a href="#tutorial2"><button class="btn-purple" onclick="showPopup('Redirection')">
+                    je veux choisir ma carte
+                </button></a>
+
+            </div>
+
+        </div>
+
+        <!-- STEP 4 -->
+        <div class="tutorial-step">
+
+            <div class="step-num">4</div>
+
+            <div class="step-info">
+
+                <h3>Lancer le jeu</h3>
+
+                <p>Maintenant il ne reste plus qu'a essayer obtenez la position de la carte via la liste des cartes.</p>
+
+                <div class="info-box">
+                    🚀 Vérifier que tout fonctionne,  en cas de problème merci de me contacter via discord.
+                </div>
+
+                 <a href="#tutorial2"><button class="btn-purple" onclick="showPopup('Redirection')">
+                    Je me lance
+                </button></a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="nav-buttons">
+        <button onclick="prevStep()">Précédent</button>
+        <button onclick="nextStep()">Suivant</button>
+    </div>
+
+</div>
+</section>
+<section class="tutorial-hybrid" id="tutorial2">
+<div class="tutorial-box">
+
+    <div class="tutorial-title">
+        <h2>Liste des cartes</h2>
+        <p>Suivez les étapes pour installer correctement le contenu</p>
+    </div>
+
+    <!-- WARNING BOX GLOBAL -->
+    <div class="info-warning">
+        ⚠️ Attention : Les cartes peuvent avoir des corrections, par exemple la version standard ne subira plus de changement sauf correction objet flottant dans le sol mal placé, etc... merci de signaler via discord.
+    </div>
+     <div class="info-warning">
+        ⚠️ Info Utile : The World of Isles Evo est la carte principal prioritaire, la carte sera a jour régulièrement via github les versions ne seront pas conserver.
+    </div>
+
+
+
+    <div class="card-grid">
+
+        <!-- ==========================================
+             CARD 1
+        ========================================== -->
+        <article class="release-card">
+
+            <div class="release-image-wrapper">
+                <img src="img/card/standard.jpg"
+                     alt="Release Alpha"
+                     class="release-main-image">
+                <div class="release-banner"></div>
+            </div>
+
+             <div class="release-thumbs">
+                 <img src="img/card/1.jpg" class="release-thumb active" onclick="changeReleaseImage(this)">
+                <img src="img/card/2.jpg" class="release-thumb active" onclick="changeReleaseImage(this)">  
+                <img src="img/card/3.jpg" class="release-thumb active" onclick="changeReleaseImage(this)">
+            </div>
+
+            <div class="release-content">
+                <div class="release-top">
+                    <div>
+                        <h2 class="release-title">The World of Isles</h2>
+                        <span class="release-version">Standard</span>
+                    </div>
+                    <span class="status available">Disponible</span>
+                </div>
+
+                <p class="release-description">
+                    La version standard est la première libération de la carte. position de la carte <br/><br/>.go xyz 11351.178 11108.8 4.2421045 726
+                </p>
+
+                <div class="meta-grid">
+                    <div class="meta-box">
+                        <span class="meta-label">Dernière modification</span>
+                        <span class="meta-value">17/06/2026</span>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <a href="https://www.mediafire.com/file/130jlw6naqi3w5w/The_World_of_Isles_Standard.zip/file" class="btn btn-primary">📥 Télécharger</a>
+                    <button class="btn btn-secondary" onclick="openModal('modal-release')">📜 Changelog</button>
+                </div>
+            </div>
+        </article>
+
+        <!-- ==========================================
+             CARD 2
+        ========================================== -->
+        <article class="release-card">
+            <div class="release-image-wrapper">
+                <img src="img/card/standard.jpg"
+                     alt="Release Alpha"
+                     class="release-main-image">
+                <div class="release-banner"></div>
+            </div>
+
+            <div class="release-thumbs">
+            </div>
+
+            <div class="release-content">
+                <div class="release-top">
+                    <div>
+                        <h2 class="release-title">The World of Isles Evolution</h2>
+                        <span class="release-version">Evo </span>
+                    </div>
+                    <span class="status available">Non disponible</span>
+                </div>
+
+                <p class="release-description">
+                    La version évolution prioritaire
+                </p>
+
+                <div class="meta-grid">
+                    <div class="meta-box">
+                        <span class="meta-label">Dernière modification</span>
+                        <span class="meta-value">0 Mai 1999</span>
+                    </div>
+                    <div class="meta-box">
+                        <span class="meta-label">Taille estimée</span>
+                        <span class="meta-value">--</span>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <span class="btn btn-disabled">⏳ Non disponible</span>
+                    <button class="btn btn-secondary">🔍 Aperçu</button>
+                </div>
+            </div>
+        </article>
+
+
+    </div>
+</div>
+
+<!-- MODAL RELEASE -->
+<div class="modal" id="modal-release">
+    <div class="modal-box">
+        <div class="modal-header">
+            <h3>📜 Changelog</h3>
+            <button class="modal-close" onclick="closeModal('modal-release')">×</button>
+        </div>
+        <div class="modal-body">
+            <ul class="changelog-list">
+                <li></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL PATCH -->
+<div class="modal" id="modal-patch">
+    <div class="modal-box">
+        <div class="modal-header">
+            <h3>📦 Contenu du Patch</h3>
+            <button class="modal-close" onclick="closeModal('modal-patch')">×</button>
+        </div>
+        <div class="modal-body">
+            <ul class="changelog-list">
+                <li>Cartes personnalisées.</li>
+                <li>Textures HD améliorées.</li>
+                <li>Nouveaux modèles 3D.</li>
+                <li>Créatures exclusives.</li>
+                <li>Effets visuels et sons.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+</section>
+
+<!-- POPUP -->
+<div id="popup" class="popup"></div>
+<script>
+
+function showPopup(text){
+
+    const popup = document.getElementById("popup");
+
+    popup.innerText = text;
+    popup.classList.add("show");
+
+    setTimeout(()=>{
+        popup.classList.remove("show");
+    }, 2000);
+}
+
+/* garde ton ancien JS nextStep/prevStep */
+
+</script>
+<script>
+
+let steps = document.querySelectorAll(".tutorial-step");
+let progress = document.getElementById("progressBar");
+
+let current = 0;
+
+function update(){
+    steps.forEach((s,i)=>{
+        s.classList.toggle("active", i === current);
+    });
+
+    progress.style.width = ((current+1)/steps.length)*100 + "%";
+}
+
+function nextStep(){
+    if(current < steps.length -1){
+        current++;
+        update();
+    }
+}
+
+function prevStep(){
+    if(current > 0){
+        current--;
+        update();
+    }
+}
+
+update();
+
+</script>
+
+</section>
 
 <div class="custom-modal" id="newsModal">
 
@@ -85,27 +656,8 @@
           <div class="news-card">
 
                 <h2>Actualités</h2>
-                <p>Il est possible que des intérieurs se trouve en dessous du sol sous certains bâtiment puisque certain n'ont pas d'intérieur.</p>
-                <p>Les cartes seront partager sur github.</p>
-                <p>Lors de la release les fonds marin seront modifier plus tard dans la version Evo.</p>
-                <p>les hautes montagnes ont un petit chemin pour rejoindre l'autre côté.</p>
-                <p>Besoin de retravailler le groundeffect tout sera noté.</p>
-                <p>Maintenant les lampposts comme ceux d'elwynn et de duskwood éclaire le sol.</p>
-                <p>Une île a été terminé.</p>
-                <p>Certains coins dans l'eau on été améliorer. </p><br>
-                <p>Pas mal de changements ont eu lieu :  le champ de pastèque a été remplacé par la Foire de Sombrelune avec La Fête des Brasseurs, juste à côté se trouve un petit coin d'équitation. le champ de pastèque a été ajouté dans un autre endroit et plus petit.
+                <p></p>
 
-
-                	<br>Il y a maintenant un petit champ de pommiers. <br>Le champ de pastèque se trouve maintenant à Val-des-Source avec un petit coin très sympa avec une petite source d'eau.</p>
-<br>
-                <p>L'île avance très bien ! c'est presque terminé mais il y a encore des choses a faire entre deux, surtout DBC, modèle, changement précipité et amélioration de terrain.</p>
-                <p>Petit nettoyage dans le MPQ.</p>
-                <p>DBC & AREA en cours de construction.</p>
-                <p>Ajouts d'autres model.</p>
-                <p>Une île a été abandonnée mais une autre est apparue : l'île aux fruits.</p>
-                <br/>
-                <p>Beaucoups de changement a été apporter sur l'île.</p>
-                <p>WorldIsland sera publier en 1.0.0, qui reste la carte original sans modification, si vous voulez continuer a possèder la dernière version avec de nouveau ajouts amélioration ect... il faut passer par la version WorldIsland-Evo.</p>
 
             </div>
 
@@ -113,8 +665,43 @@
 
 </div>
 
-<!-- MODAL 2 -->
+<div class="custom-modal" id="signalModal">
 
+    <div class="modal-overlay"></div>
+
+    <div class="modal-box">
+
+        <button class="close-modal">
+            ✕
+        </button>
+
+          <div class="news-card">
+
+                <h2>The World of Isles standard</h2>
+                <li>Objet flottanet, en dessous du sol.<li>
+
+        </div>
+    </div>
+</div>
+<div class="custom-modal" id="feuilleModal">
+
+    <div class="modal-overlay"></div>
+
+    <div class="modal-box">
+
+        <button class="close-modal">
+            ✕
+        </button>
+
+          <div class="news-card">
+
+                <h2>The World of Isles Evolution</h2>
+                <li>Amélioration et changement sur la carte.</li>
+                <li>Nouvelle île au bambou.</li>
+
+        </div>
+    </div>
+</div>
 <div class="custom-modal" id="patchModal">
 
     <div class="modal-overlay"></div>
@@ -128,106 +715,25 @@
         <div class="news-grid">
 
             <div class="news-card">
-                <a href="img/evo1.jpg"><img src="img/evo1.jpg" alt=""></a>
+                <a href="img/news/1.jpg"><img src="img/news/1.jpg" alt=""></a>
             </div>
 
             <div class="news-card">
-                <a href="img/evo2.jpg"><img src="img/evo2.jpg" alt=""></a>
+                <a href="img/news/2.jpg"><img src="img/news/2.jpg" alt=""></a>
             </div>
 
             <div class="news-card">
-                <a href="img/evo3.jpg"><img src="img/evo3.jpg" alt=""></a>
+                <a href="img/news/3.jpg"><img src="img/news/3.jpg" alt=""></a>
             </div>
             <div class="news-card">
-                <a href="img/evo4.jpg"><img src="img/evo4.jpg" alt=""></a>
+                <a href="img/news/4.jpg"><img src="img/news/4.jpg" alt=""></a>
             </div>
-            <div class="news-card">
-                <a href="img/evo5.jpg"><img src="img/evo5.jpg" alt=""></a>
-            </div>
-             <div class="news-card">
-                <a href="img/evo6.jpg"><img src="img/evo6.jpg" alt=""></a>
-            </div>
-            <div class="news-card">
-                <a href="img/evo7.jpg"><img src="img/evo7.jpg" alt=""></a>
-            </div>
-            <div class="news-card">
-                <a href="img/evo8.jpg"><img src="img/evo8.jpg" alt=""></a>
-            </div>
-            <div class="news-card">
-                <a href="img/evo9.jpg"><img src="img/evo9.jpg" alt=""></a>
-            </div>
+
         </div>
 
     </div>
 
 </div>
-<div class="custom-modal" id="videoModal">
-
-    <div class="modal-overlay"></div>
-
-    <div class="modal-box">
-
-        <button class="close-modal">✕</button>
-
-        <div class="faq-container">
-    <div class="faq-item">
-    <div class="faq-question">
-        Est-ce possible d'avoir un patch ? <span class="toggle-icon">＋</span>
-      </div>
-      <div class="faq-answer">
-        Merci de ne pas me demander de créer un patch, c'est non ! je ne fournirai jamais de patch.MPQ, tout est inclus dans un fichier winrar, car cela prend moins de place puisque c'est compresser et modifiable facilement.
-      </div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-question">
-        Comment installer la map ? <span class="toggle-icon">＋</span>
-      </div>
-      <div class="faq-answer">
-        1): Télécharger les fichiers zip <br>
-        2): Créer un fichier par exemple: patch-E.MPQ dans votre dossier data ensuite placer tout les contenue du fichier MPQ à l'intérieur <br>
-        3): Ouvrez maps.zip mettez DBCFILESCLIENT et World dans le fichier patch-E.MPQ que vous avez créer ensuite lancer le jeu et tester<br>
-        4): Certaine map possède un sous-dossier il suffit juste de copier par exemple SP dans le fichier world/maps, n'oublier pas d'éditer le fichier map.dbc<br>
-      </div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-question">
-        Les DBCS ? <span class="toggle-icon">＋</span>
-      </div>
-      <div class="faq-answer">
-        Les DBCS servent au bon fonctionnement de la map et incluent des choses comme les noms des zones, les lumières, l'herbe sol roche, soundambience pour les sons custom, MAIS si vous connaissez le modding, vous savez utiliser les DBCS pour votre serveur 
-Créez vos propres lignes pour les adapter
-Certaines DBC comme créature ne sont pas utilisées à la zone, oui, mais je le laisse car c'était prévu pour autre chose > les sqls optionnel.
-
-      </div>
-    </div>
-      <div class="faq-item">
-      <div class="faq-question">
-        SQL OPTIONNEL <span class="toggle-icon">＋</span>
-      </div>
-      <div class="faq-answer">
-        Certaines cartes possèdent des gameobjects, puisque la démonstration est basée sur mon serveur. J'ai ajouté des gameobjects, il est possible que
-		certaines maps possèdent des objets qui ne sont pas sur la carte originale, même si cela ne vous servira à rien.
-
-
-      </div>
-    </div>
-   <div class="faq-item">
-      <div class="faq-question">
-        Pourquoi pas le wow moderne <span class="toggle-icon">＋</span>
-      </div>
-      <div class="faq-answer">
-        Les nouvelles extensions ne m'intéressent pas. Ma dernière extension que j'ai arrêtée, c'est Cataclysm 4.3.4. Le modding est plus simple sur la version 3.3.5, car le nouveau wow ne m'intéresse pas pour plusieurs raisons : l'aspect graphique trop cartonné à mon goût, trop de changements, trop d'ajouts, et bien d'autres encore. Sans compter que maintenant le client pèse très lourd maintenant. Pourquoi pas Cataclysm ? tout simplement car le modding est un peu pauvre, il y a quand même eu trop de changements pour plusieurs raisons que je ne vais pas tout détailler ici.
-      </div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-question">
-        Est-ce que c’est compatible avec WoW moderne ? <span class="toggle-icon">＋</span>
-      </div>
-      <div class="faq-answer">
-        Seulement la version 3.3.5, à vous de bidouiller pour la version ancienne ou supérieure, je ne fournis aucun soutien.
-      </div>
-    </div>
-
   <script>
     // Toggle FAQ accordéon
     const items = document.querySelectorAll(".faq-item");
@@ -245,7 +751,423 @@ Certaines DBC comme créature ne sont pas utilisées à la zone, oui, mais je le
     </div>
 
 </div>
+<style>
 
+.section-header{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.section-header h1{
+    font-size:clamp(2.5rem, 5vw, 4rem);
+    font-weight:800;
+    margin-bottom:12px;
+}
+
+.section-header p{
+    max-width:780px;
+    margin:auto;
+    color:var(--muted);
+    font-size:1.05rem;
+}
+
+/* ==========================================
+   GRID - EXACTEMENT COMME TON IMAGE
+========================================== */
+.card-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:28px;
+}
+
+/* ==========================================
+   CARD
+========================================== */
+.release-card{
+    background:var(--surface);
+    border-radius:var(--radius);
+    overflow:hidden;
+    box-shadow:var(--shadow);
+    border:1px solid var(--border);
+    transition:var(--transition);
+
+    /* IMPORTANT : toutes les cartes ont la même hauteur */
+    height:100%;
+    display:flex;
+    flex-direction:column;
+}
+
+.release-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 30px 80px rgba(15,23,42,0.12);
+}
+
+/* ==========================================
+   IMAGE PRINCIPALE
+========================================== */
+.release-image-wrapper{
+    position:relative;
+}
+
+.release-main-image{
+    width:100%;
+    height:260px; /* même hauteur pour toutes */
+    object-fit:cover;
+    display:block;
+}
+
+.release-banner{
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    height:6px;
+    background:linear-gradient(90deg, var(--primary), var(--primary-light));
+}
+
+/* ==========================================
+   MINIATURES
+========================================== */
+.release-thumbs{
+    display:flex;
+    gap:10px;
+    padding:14px;
+    background:#fff;
+    border-bottom:1px solid var(--border);
+}
+
+.release-thumb{
+    width:72px;
+    height:52px;
+    object-fit:cover;
+    border-radius:12px;
+    cursor:pointer;
+    border:3px solid transparent;
+    opacity:.75;
+    transition:var(--transition);
+}
+
+.release-thumb:hover{
+    opacity:1;
+    transform:translateY(-2px);
+}
+
+.release-thumb.active{
+    opacity:1;
+    border-color:var(--primary);
+    box-shadow:0 0 0 4px rgba(110,201,35,.12);
+}
+
+/* ==========================================
+   CONTENT
+========================================== */
+.release-content{
+    padding:28px;
+    display:flex;
+    flex-direction:column;
+    flex:1; /* remplit toute la hauteur restante */
+}
+
+.release-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:16px;
+    margin-bottom:18px;
+}
+
+.release-title{
+    font-size:2rem;
+    font-weight:800;
+    line-height:1.2;
+}
+
+.release-version{
+    display:inline-block;
+    margin-top:8px;
+    padding:4px 12px;
+    border-radius:999px;
+    background:rgba(110,201,35,.12);
+    color:var(--primary-dark);
+    font-size:.82rem;
+    font-weight:700;
+}
+
+.status{
+    padding:8px 14px;
+    border-radius:999px;
+    font-size:.78rem;
+    font-weight:700;
+    white-space:nowrap;
+}
+
+.status.available{
+    background:rgba(16,185,129,.12);
+    color:var(--success);
+}
+
+.status.unavailable{
+    background:rgba(239,68,68,.12);
+    color:var(--danger);
+}
+
+/* Description avec hauteur minimale pour uniformiser */
+.release-description{
+    color:var(--muted);
+    margin-bottom:24px;
+    min-height:140px;
+}
+
+/* ==========================================
+   META
+========================================== */
+.meta-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+    margin-bottom:24px;
+}
+
+.meta-box{
+    background:var(--surface-2);
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:14px;
+}
+
+.meta-label{
+    display:block;
+    font-size:.72rem;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:var(--muted);
+    font-weight:700;
+    margin-bottom:4px;
+}
+
+.meta-value{
+    font-weight:700;
+}
+
+/* ==========================================
+   BUTTONS
+========================================== */
+.actions{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+
+    /* pousse les boutons en bas de la carte */
+    margin-top:auto;
+}
+
+.btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:14px 20px;
+    border-radius:14px;
+    border:none;
+    cursor:pointer;
+    font-family:inherit;
+    font-size:.92rem;
+    font-weight:700;
+    text-decoration:none;
+    transition:var(--transition);
+}
+
+.btn-primary{
+    background:linear-gradient(135deg, var(--primary), #8dff2e);
+    color:#132400;
+    box-shadow:0 10px 30px rgba(110,201,35,.25);
+}
+
+.btn-primary:hover{
+    transform:translateY(-2px);
+    box-shadow:0 18px 40px rgba(110,201,35,.35);
+}
+
+.btn-secondary{
+    background:#fff;
+    border:1px solid var(--border);
+    color:var(--text);
+}
+
+.btn-secondary:hover{
+    background:var(--surface-2);
+}
+
+.btn-disabled{
+    background:#e2e8f0;
+    color:#94a3b8;
+    cursor:not-allowed;
+    pointer-events:none;
+}
+
+/* ==========================================
+   MODAL
+========================================== */
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(15,23,42,.65);
+    backdrop-filter:blur(6px);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+    opacity:0;
+    visibility:hidden;
+    transition:var(--transition);
+    z-index:9999;
+}
+
+.modal.active{
+    opacity:1;
+    visibility:visible;
+}
+
+.modal-box{
+    background:#fff;
+    border-radius:28px;
+    width:min(720px, 100%);
+    max-height:85vh;
+    overflow:auto;
+    box-shadow:0 40px 100px rgba(15,23,42,.25);
+}
+
+.modal-header{
+    padding:28px 32px 20px;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.modal-header h3{
+    font-size:1.6rem;
+    font-weight:800;
+}
+
+.modal-close{
+    width:42px;
+    height:42px;
+    border:none;
+    border-radius:50%;
+    background:#f1f5f9;
+    cursor:pointer;
+    font-size:1.5rem;
+}
+
+.modal-body{
+    padding:28px 32px 32px;
+}
+
+.changelog-list{
+    padding-left:20px;
+    color:var(--muted);
+}
+
+.changelog-list li{
+    margin-bottom:10px;
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+@media (max-width: 1100px){
+    .card-grid{
+        grid-template-columns:repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px){
+    body{
+        padding:40px 16px;
+    }
+
+    .card-grid{
+        grid-template-columns:1fr;
+    }
+
+    .release-main-image{
+        height:220px;
+    }
+
+    .release-content{
+        padding:22px;
+    }
+
+    .release-top{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .meta-grid{
+        grid-template-columns:1fr;
+    }
+
+    .actions{
+        flex-direction:column;
+    }
+
+    .btn{
+        width:100%;
+    }
+
+    .release-description{
+        min-height:auto;
+    }
+}
+</style>
+</head>
+
+
+<script>
+function changeReleaseImage(thumb){
+    const card = thumb.closest('.release-card');
+    const mainImage = card.querySelector('.release-main-image');
+
+    mainImage.src = thumb.src;
+    mainImage.alt = thumb.alt || 'Image release';
+
+    card.querySelectorAll('.release-thumb').forEach(img => {
+        img.classList.remove('active');
+    });
+
+    thumb.classList.add('active');
+}
+
+function openModal(id){
+    document.getElementById(id).classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal(id){
+    document.getElementById(id).classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+// Fermer en cliquant à l'extérieur
+ document.querySelectorAll('.modal').forEach(modal => {
+    modal.addEventListener('click', function(e){
+        if(e.target === this){
+            this.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+});
+
+// Fermer avec Échap
+ document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){
+        document.querySelectorAll('.modal.active').forEach(modal => {
+            modal.classList.remove('active');
+        });
+        document.body.style.overflow = '';
+    }
+});
+</script>
   <section class="gallery">
 
     <div class="container">
@@ -390,30 +1312,6 @@ Certaines DBC comme créature ne sont pas utilisées à la zone, oui, mais je le
         <!-- PAGINATION -->
 
         <div class="slider-pagination" id="sliderPagination"></div>
-
-    </div>
-
-</section>
-
-<!-- CTA -->
-
-<section class="cta" id="progression">
-
-    <div class="container">
-
-        <div class="cta-box">
-
-             <div class="progress-box" progression>
-             	<h2>Progression de la carte</h2>
-                <div class="progress-top">
-                    <span>World Island</span>
-                </div>
-
-                <div class="progress-bar">
-                    <div class="progress-fill"><span>99%</span></div>
-                </div>
-
-        </div>
 
     </div>
 
